@@ -3,6 +3,8 @@ from mp3_to_mp4 import mp3_to_mp4
 from tempfile import NamedTemporaryFile
 from os import remove
 
+remove("test.mp4")
+
 st.set_page_config(
     page_icon="🤖",
     page_title="MP4 Generator",
