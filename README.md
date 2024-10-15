@@ -27,4 +27,18 @@ This will install all necessary components. Make sure to use the virtual environ
 
 ## Use of the tool
 
-tbd
+The easiest way to use this tool is by starting it with docker. You can build your own cocker image using the `docker_build.sh` file. The Docker container will be named `streamlit_mp4_converter` and will already contain all necessary requirements. Run the container with the following command:
+
+```sh
+docker run streamlit_mp4_converter
+```
+
+Alternatively, you can run the `streamlit` app locally on your machine. If so, make sure that all requirements are installed (see Requirements) on your local machine. Startup the app by executing the following command on your terminal (open the terminal in the root folder of this repositiory, where `app.py` is located):
+
+```sh
+streamlit run app.py
+```
+
+In either way, you can access the app using your browser by going to [http://localhost:8501](http://localhost:8501).
+
+>**Note:** The port might be different depending on wether you have already another streamlit app running on your machine. If so, try 8502, 8503 and so fourth.
