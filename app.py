@@ -23,6 +23,9 @@ file = st.file_uploader("WAV File", type=["wav"])
 new_title = main_title.replace(" ", "_")+"___"+sub_title.replace(" ", "_")+".mp4"
 
 if file is not None:
+    if isfile("temp.wav"):
+        remove("temp.wav")
+
     with open("temp.wav", 'bx') as f:
         f.write(file.read())
 
