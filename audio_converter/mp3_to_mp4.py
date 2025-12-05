@@ -23,10 +23,14 @@ def wav_to_mp3(wav_file_path):
     return mp3_file_path
 
 
-def mp3_to_mp4(wav_file_path, main_title, sub_title):
-    file_name = wav_file_path.split(".")[0]
-    mp3_file_path = wav_to_mp3(wav_file_path)
-    audio_clip = AudioFileClip(mp3_file_path)
+def convert(file_path, main_title, sub_title):
+    file_name = file_path.split(".")[0]
+    file_extension = file_path.split(".")[1]
+
+    if file_extension =="wav":
+        file_path = wav_to_mp3(file_path)
+
+    audio_clip = AudioFileClip(file_path)
 
     png_file_path = place_title(
         main_title=main_title,
@@ -41,7 +45,7 @@ def mp3_to_mp4(wav_file_path, main_title, sub_title):
     video_clip.write_videofile(file_name+'.mp4')
 
     try:
-        remove(mp3_file_path)
+        remove(file_path)
         remove(png_file_path)
     except:
         pass
