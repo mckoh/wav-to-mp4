@@ -40,7 +40,10 @@ def mp3_to_mp4(wav_file_path, main_title, sub_title):
     video_clip.fps = 30
     video_clip.write_videofile(file_name+'.mp4')
 
-    remove(mp3_file_path)
-    remove(png_file_path)
+    try:
+        remove(mp3_file_path)
+        remove(png_file_path)
+    except:
+        pass
 
     return True
