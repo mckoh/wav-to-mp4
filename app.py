@@ -1,8 +1,6 @@
 import streamlit as st
-from mp3_to_mp4 import mp3_to_mp4
-from tempfile import NamedTemporaryFile
-from os import remove
-from os.path import isfile
+from audio_converter.mp3_to_mp4 import convert
+from audio_converter.util import clean
 
 st.set_page_config(
     page_icon="🤖",
@@ -18,22 +16,22 @@ st.image("static/demo.png", "Demo image of output file")
 
 main_title = st.text_input("Main Title (see demo image)")
 sub_title = st.text_input("Sub Title (see demo image)")
-file = st.file_uploader("WAV File", type=["wav"])
+file = st.file_uploader("WAV File", type=["wav", "mp3"])
 
 new_title = main_title.replace(" ", "_")+"___"+sub_title.replace(" ", "_")+".mp4"
 
 if file is not None:
-    if isfile("temp.wav"):
-        remove("temp.wav")
 
-    with open("temp.wav", 'bx') as f:
-        f.write(file.read())
+    clean()
 
-    if isfile("temp.mp4"):
-        remove("temp.mp4")
-
-    mp3_to_mp4("temp.wav", main_title, sub_title)
-    remove("temp.wav")
+    if file.name.endswith(".wav"):
+        with open("temp.wav", 'bx') as f:
+            f.write(file.read())
+        convert("temp.wav", main_title, sub_title)
+    else:
+        with open("temp.mp3", 'bx') as f:
+            f.write(file.read())
+        convert("temp.mp3", main_title, sub_title)
 
     with open("temp.mp4", 'rb') as f:
         st.download_button('Download MP4-File', f, file_name=new_title)
