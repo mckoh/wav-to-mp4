@@ -23,6 +23,11 @@ def wav_to_mp3(wav_file_path):
     return mp3_file_path
 
 
+def m4a_to_mp3(m4a_file_path):
+    song = AudioSegment.from_file(m4a_file_path)
+    song.export("temp.mp3", format="mp3")
+
+
 def convert(file_path, main_title, sub_title):
     file_name = file_path.split(".")[0]
     file_extension = file_path.split(".")[1]

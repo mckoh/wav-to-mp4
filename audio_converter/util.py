@@ -11,3 +11,6 @@ def clean():
 
     if isfile("temp.mp4"):
         remove("temp.mp4")
+
+    if isfile("temp.m4a"):
+        remove("temp.m4a")

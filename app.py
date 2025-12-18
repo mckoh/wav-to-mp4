@@ -1,5 +1,5 @@
 import streamlit as st
-from audio_converter.mp3_to_mp4 import convert
+from audio_converter.mp3_to_mp4 import convert, m4a_to_mp3
 from audio_converter.util import clean
 
 st.set_page_config(
@@ -16,7 +16,7 @@ st.image("static/demo.png", "Demo image of output file")
 
 main_title = st.text_input("Main Title (see demo image)")
 sub_title = st.text_input("Sub Title (see demo image)")
-file = st.file_uploader("WAV File", type=["wav", "mp3"])
+file = st.file_uploader("WAV File", type=["wav", "mp3", "m4a"])
 
 new_title = main_title.replace(" ", "_")+"___"+sub_title.replace(" ", "_")+".mp4"
 
@@ -28,9 +28,17 @@ if file is not None:
         with open("temp.wav", 'bx') as f:
             f.write(file.read())
         convert("temp.wav", main_title, sub_title)
-    else:
+    elif file.name.endswith(".mp3"):
         with open("temp.mp3", 'bx') as f:
             f.write(file.read())
+        convert("temp.mp3", main_title, sub_title)
+
+    # TODO: Check this
+    elif file.name.endswith(".m4a"):
+        with open("temp.m4a", 'bx') as f:
+            f.write(file.read())
+
+        m4a_to_mp3("temp.m4a")
         convert("temp.mp3", main_title, sub_title)
 
     with open("temp.mp4", 'rb') as f:
