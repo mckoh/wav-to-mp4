@@ -24,16 +24,21 @@ def wav_to_mp3(wav_file_path):
 
 
 def m4a_to_mp3(m4a_file_path):
-    song = AudioSegment.from_file(m4a_file_path)
-    song.export("temp.mp3", format="mp3")
+    mp3_file_path = m4a_file_path.split(".")[0]+".mp3"
+    sound = AudioSegment.from_file(m4a_file_path)
+    sound.export(mp3_file_path, format="mp3")
+    return mp3_file_path
 
 
 def convert(file_path, main_title, sub_title):
     file_name = file_path.split(".")[0]
     file_extension = file_path.split(".")[1]
 
-    if file_extension =="wav":
+    if file_extension == "wav":
         file_path = wav_to_mp3(file_path)
+
+    if file_extension == "m4a":
+        file_path = m4a_to_mp3(file_path)
 
     audio_clip = AudioFileClip(file_path)
 
