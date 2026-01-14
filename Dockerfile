@@ -4,16 +4,13 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get clean
+RUN apt-get -y upgrade
+RUN apt-get install -y build-essential
+RUN apt-get install -y --no-install-recommends ffmpeg
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get install -y --no-install-recommends ffmpeg
-
-RUN git clone https://github.com/mckoh/wav-to-mp4.git .
+COPY . /app
 
 RUN pip3 install -r requirements.txt
 
